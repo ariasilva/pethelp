@@ -1,109 +1,88 @@
-import React from "react";
-import { Link } from 'react-router-dom';
-import { FiPower, FiPlus } from "react-icons/fi";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from 'react-router-dom';
+import { FiPower, FiTrash2 } from "react-icons/fi";
+
+import api from '../../services/api';
 
 import './styles.css';
 
 import logoImg from '../../assets/Logo.svg'
-import felyImg from '../../assets/fely.png'
-import lanaImg from '../../assets/lana.png'
-import reviImg from '../../assets/revi.png'
-import luliImg from '../../assets/luli.png'
 
 export default function Profile() {
-  const adotName = localStorage.getItem('adotName')
+  const [incidents, setIncidents] = useState([]);
+
+  const history = useHistory();
+
+  const ongId = localStorage.getItem('ongId')
+  const ongName = localStorage.getItem('ongName')
+
+  useEffect(() => {
+    api.get('profile', {
+      headers: {
+        Authorization: ongId,
+      }
+    }).then(response => {
+      setIncidents(response.data);
+    })
+  }, [ongId]);
+
+  async function handleDeleteIncident(id) {
+    try {
+      await api.delete(`incidents/${id}`, {
+        headers: {
+          Authorization: ongId,
+        }
+      });
+
+      setIncidents(incidents.filter(incident => incident.id != id));
+    } catch (err) {
+      alert('Erro ao deletar caso, tente novamente.');
+    }
+  }
+
+  function handleLogout() {
+    localStorage.clear();
+
+    history.push('/');
+  }
 
   return (
     <div className="profile-container">
       <header>
         <img src={logoImg} alt="Pet Help" />
-        <span>Bem vinda(o), {adotName}!</span>
-        <Link className="button" to="/adoption">Ficha para adoção</Link>
-        <button type="button">
+        <span>Bem vinda(o), {ongName}!</span>
+        <Link className="button" to="/incidents">Cadastrar novo caso</Link>
+        <button onClick={handleLogout} type="button">
           <FiPower size={18} color="#FD764C" />
         </button>
       </header>
 
-      <h1>Animais para adoção:</h1>
-
+      <h1>Ajude um animal:</h1>
 
       <ul>
-        <li>
-          <img src={felyImg} alt="Fely" />
-          <strong>NOME:</strong>
-          <p>Feliny</p>
+        {incidents.map(incident =>
+          <li key={incident.id}>
 
-          <strong>ESPÉCIE:</strong>
-          <p>Felina</p>
+            <strong>Nome</strong>
+            <p>{incident.nome}</p>
 
-          <strong>SEXO:</strong>
-          <p>Fêmea</p>
+            <strong>Sexo:</strong>
+            <p>{incident.sexo}</p>
 
-          <strong>IDADE:</strong>
-          <p>2 anos</p>
+            <strong>Idade:</strong>
+            <p>{incident.idade}</p>
 
-          <button type="button">
-            <FiPlus size={20} color="#a8a8b3" />
-          </button>
-        </li>
+            <strong>Custos mensais:</strong>
+            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.custos)}</p>
 
-        <li>
-          <img src={lanaImg} alt="Lana" />
-          <strong>NOME:</strong>
-          <p>Lana</p>
+            <strong>Histórico de gastos:</strong>
+            <p>{incident.historico}</p>
 
-          <strong>ESPÉCIE:</strong>
-          <p>Canina</p>
-
-          <strong>SEXO:</strong>
-          <p>Fêmea</p>
-
-          <strong>IDADE:</strong>
-          <p>4 anos</p>
-
-
-          <button type="button">
-            <FiPlus size={20} color="#a8a8b3" />
-          </button>
-        </li>
-
-        <li>
-          <img src={reviImg} alt="Revi" />
-          <strong>NOME:</strong>
-          <p>Revi</p>
-
-          <strong>ESPÉCIE:</strong>
-          <p>Felina</p>
-
-          <strong>SEXO:</strong>
-          <p>Macho</p>
-
-          <strong>IDADE:</strong>
-          <p>6 anos</p>
-
-          <button type="button">
-            <FiPlus size={20} color="#a8a8b3" />
-          </button>
-        </li>
-
-        <li>
-          <img src={luliImg} alt="Luli" />
-          <strong>NOME:</strong>
-          <p>Luli</p>
-
-          <strong>ESPÉCIE:</strong>
-          <p>Canina</p>
-
-          <strong>SEXO:</strong>
-          <p>Macho</p>
-
-          <strong>IDADE:</strong>
-          <p>3 anos</p>
-
-          <button type="button">
-            <FiPlus size={20} color="#a8a8b3" />
-          </button>
-        </li>
+            <button onClick={() => handleDeleteIncident(incident.id)} type="button">
+              <FiTrash2 size={20} color="#a8a8b3" />
+            </button>
+          </li>
+        )}
       </ul>
 
     </div>

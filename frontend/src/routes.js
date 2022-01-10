@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Logon from './pages/Logon';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
-import Adoption from './pages/Adoption';
+import Incidents from './pages/Incidents';
 
 export default function Routing() {
   return (
@@ -16,7 +16,7 @@ export default function Routing() {
         </Route>
         <Route path="/profile" component={Profile}>
         </Route>
-        <Route path="/adoption" component={Adoption}>
+        <Route path="/incidents" component={Incidents}>
         </Route>
       </Switch>
 
