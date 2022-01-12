@@ -48,7 +48,6 @@ export default function Incidents() {
       <div className="content">
         <section>
           <img src={logoImg} alt="Pet Help" />
-
           <h1>Cadastrar novo caso</h1>
           <p>Descreva o caso detalhadamente para encontrar um herói para resolver isso.</p>
           <Link className="back-link" to="/profile">
@@ -56,7 +55,6 @@ export default function Incidents() {
             &nbsp; Voltar para home
           </Link>
         </section>
-
 
         <form onSubmit={handleIncident}>
           <input
