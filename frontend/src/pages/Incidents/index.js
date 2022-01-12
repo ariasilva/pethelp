@@ -48,6 +48,7 @@ export default function Incidents() {
       <div className="content">
         <section>
           <img src={logoImg} alt="Pet Help" />
+
           <h1>Cadastrar novo caso</h1>
           <p>Descreva o caso detalhadamente para encontrar um herói para resolver isso.</p>
           <Link className="back-link" to="/profile">
@@ -55,6 +56,7 @@ export default function Incidents() {
             &nbsp; Voltar para home
           </Link>
         </section>
+
 
         <form onSubmit={handleIncident}>
           <input
@@ -71,7 +73,7 @@ export default function Incidents() {
 
           <input
             type="number"
-            maxlength="2"
+            min="1" max="20"
             placeholder="Idade"
             value={idade}
             onChange={e => setIdade(e.target.value)}
@@ -79,6 +81,7 @@ export default function Incidents() {
 
           <input
             type="number"
+            min="1" max="9999"
             placeholder="Valor em reais"
             value={custos}
             onChange={e => setCustos(e.target.value)}
@@ -92,7 +95,8 @@ export default function Incidents() {
 
           <button className="button" type="submit">Cadastrar</button>
         </form>
-      </div >
-    </div >
+
+      </div>
+    </div>
   )
 }

@@ -39,6 +39,7 @@ export default function Register() {
 
   }
 
+
   return (
     <div className="register-container">
       <div className="content">
@@ -66,6 +67,7 @@ export default function Register() {
           />
 
           <input
+            maxLength={11}
             placeholder="WhatsApp"
             value={whatsapp}
             onChange={e => setWhatsapp(e.target.value)}

@@ -34,7 +34,7 @@ export default function Logon() {
         <img src={logoImg} alt="Pet Help" />
 
         <form onSubmit={handleLogin}>
-          <div className="inputLogonGroup"><h1>Faça seu logon</h1>
+          <div className="inputLogonGroup"><h1>Faça seu login</h1>
             <input
               placeholder="Sua ID"
               value={id}
@@ -52,7 +52,9 @@ export default function Logon() {
         </form>
       </section>
 
-      <img src={petImg} alt="PetImg" />
+      <section class="imagem">
+        <img src={petImg} alt="PetImg" />
+      </section>
     </div>
   );
 }

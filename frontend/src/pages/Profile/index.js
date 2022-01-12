@@ -50,12 +50,14 @@ export default function Profile() {
     <div className="profile-container">
       <header>
         <img src={logoImg} alt="Pet Help" />
-        <span>Bem vinda(o), {ongName}!</span>
-        <Link className="button" to="/incidents">Cadastrar novo caso</Link>
+
+        <Link className="button" to="/incidents">Cadastrar caso</Link>
         <button onClick={handleLogout} type="button">
           <FiPower size={18} color="#FD764C" />
         </button>
       </header>
+
+      <span>Bem vinda(o), {ongName}!</span>
 
       <h1>Ajude um animal:</h1>
 
