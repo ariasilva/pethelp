@@ -46,7 +46,7 @@ export default function Register() {
         <section>
           <img src={logoImg} alt="Pet Help" />
           <h1>Cadastro</h1>
-          <p>Faça seu cadastro, entre na plataforma e adote um pet.</p>
+          <p>Faça seu cadastro, entre na plataforma e ajude um pet.</p>
           <Link className="back-link" to="/">
             <FiArrowLeft size={16} color="#FD764C" />
             &nbsp; Já possuo cadastro
